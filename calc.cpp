@@ -27,6 +27,7 @@ void	CalcProc(SCalculator* p_calc,char const * p_expr)
 	}
 	else
 	{
+		//增加注释
 		if(error_code == SCalculator::PARSE_ERR_CHAR)
 			printf("表达式词法错误！");
 		else if(error_code == SCalculator::PARSE_ERR_PROG)
