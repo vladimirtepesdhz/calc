@@ -46,17 +46,17 @@ OPER_ADD = (int)'+'
 ,OPER_LOG = (int)'~'
 ,OPER_PAR_L = (int)'('
 ,OPER_PAR_R = (int)')'
-,OPER_NEG = 0x0100	//负号
+,OPER_NEG = 0x0100	//璐熷彿
 
-,OPER_FUNC_SIN = 0x0101	//sin函数
-,OPER_FUNC_COS = 0x0102	//cos函数
-,OPER_FUNC_TAN = 0x0103	//tan函数
-,OPER_FUNC_EXP = 0x0104	//exp函数
-,OPER_FUNC_LN = 0x0105	//ln函数
-,OPER_FUNC_LOG10 = 0x0106	//log10函数
-,OPER_FUNC_ASIN = 0x0107	//asin函数
-,OPER_FUNC_ACOS = 0x0108	//acos函数
-,OPER_FUNC_ATAN = 0x0109	//atan函数
+,OPER_FUNC_SIN = 0x0101	//sin鍑芥暟
+,OPER_FUNC_COS = 0x0102	//cos鍑芥暟
+,OPER_FUNC_TAN = 0x0103	//tan鍑芥暟
+,OPER_FUNC_EXP = 0x0104	//exp鍑芥暟
+,OPER_FUNC_LN = 0x0105	//ln鍑芥暟
+,OPER_FUNC_LOG10 = 0x0106	//log10鍑芥暟
+,OPER_FUNC_ASIN = 0x0107	//asin鍑芥暟
+,OPER_FUNC_ACOS = 0x0108	//acos鍑芥暟
+,OPER_FUNC_ATAN = 0x0109	//atan鍑芥暟
 */
 
 const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
@@ -100,7 +100,7 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 	if(*p_expr)
 	{
 		p_expr = ParseEmpty(p_expr);
-		if(isdigit(*p_expr))	//解析数字
+		if(isdigit(*p_expr))	//
 		{
 			double sum = 0;
 			TComplex vc(0,0);
@@ -117,10 +117,10 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 					)
 				)
 			{
-				// 二进制数或十六进制数
+				//
 				if(p_expr[1] == 'b'||p_expr[1] == 'B')
 				{
-					//二进制数
+					//
 					p_expr += 2;
 					while(*p_expr == '0'||*p_expr == '1')
 					{
@@ -141,7 +141,7 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 				}
 				else if(p_expr[1] == 'x'||p_expr[1] == 'X')
 				{
-					//十六进制数
+					//
 					p_expr += 2;
 					while(isxdigit(*p_expr))
 					{
@@ -163,7 +163,7 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 			}
 			else
 			{
-				//十进制数
+				//
 				while(isdigit(*p_expr))
 				{
 					sum = (sum*10) + (*p_expr-'0');
@@ -181,7 +181,7 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 					}
 				}
 			}
-			if(*p_expr=='E'||*p_expr=='e')	//科学计数法部分
+			if(*p_expr=='E'||*p_expr=='e')	//
 			{
 				bool exp_neg = false;
 				double exp_value = 0;
@@ -224,19 +224,19 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 				str += (*p_expr);
 				++p_expr;
 			}
-			if(str == "i")	//虚数i
+			if(str == "i")	//
 			{
 				p_data->type = PARSE_TYPE_NUM;
 				p_data->value.imag(1);
 				return	p_expr;
 			}
-			else if(_stricmp(str.c_str(),"e") == 0)	//常数e
+			else if(strcasecmp(str.c_str(),"e") == 0)	//
 			{
 				p_data->type = PARSE_TYPE_NUM;
 				p_data->value.real(M_E);
 				return	p_expr;
 			}
-			else if(_stricmp(str.c_str(),"PI") == 0)	//常数pi
+			else if(strcasecmp(str.c_str(),"PI") == 0)	//
 			{
 				p_data->type = PARSE_TYPE_NUM;
 				p_data->value.real(M_PI);
@@ -246,14 +246,14 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 			{
 				for(int iter=0;iter<numof(func_table);++iter)
 				{
-					if(_stricmp(func_table[iter].p_name,str.c_str())==0)
+					if(strcasecmp(func_table[iter].p_name,str.c_str())==0)
 					{
-						p_data->type = PARSE_TYPE_OPER;	//函数
+						p_data->type = PARSE_TYPE_OPER;	//
 						p_data->oper = func_table[iter].func_id;
 						return	p_expr;
 					}
 				}
-				p_data->type = PARSE_TYPE_VAR;	//变量
+				p_data->type = PARSE_TYPE_VAR;	//
 				p_data->var_name = str;
 			}
 			return	p_expr;
@@ -265,12 +265,12 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 				if(oper_table[iter] == *p_expr)
 				{
 					++p_expr;
-					p_data->type = PARSE_TYPE_OPER;	//操作符
+					p_data->type = PARSE_TYPE_OPER;	//
 					p_data->oper = oper_table[iter];
 					return	p_expr;
 				}
 			}
-			p_data->type = PARSE_TYPE_NULL;	//错误，未知字符
+			p_data->type = PARSE_TYPE_NULL;	//
 			return	p_expr;
 		}
 	}
@@ -278,30 +278,9 @@ const char * SCalculator::Parse(const char * p_expr,SToken * p_data)
 }
 
 /*
-OPER_ADD = (int)'+'
-,OPER_SUB = (int)'-'
-,OPER_MULT = (int)'*'
-,OPER_DIV = (int)'/'
-,OPER_POWER = (int)'^'
-,OPER_LOG = (int)'~'
-,OPER_PAR_L = (int)'('
-,OPER_PAR_R = (int)')'
-,OPER_NEG = 0x0100	//负号
-
-,OPER_FUNC_ABS	//abs函数
-,OPER_FUNC_SQRT	//sqrt函数
-,OPER_FUNC_SIN	//sin函数
-,OPER_FUNC_COS	//cos函数
-,OPER_FUNC_TAN	//tan函数
-,OPER_FUNC_EXP	//exp函数
-,OPER_FUNC_LN	//ln函数
-,OPER_FUNC_LOG10	//log10函数
-,OPER_FUNC_ASIN	//asin函数
-,OPER_FUNC_ACOS	//acos函数
-,OPER_FUNC_ATAN	//atan函数
 */
 
-//是否为四则运算符
+//
 static	bool	IsArithmOper(int oper)
 {
 	switch(oper)
@@ -317,7 +296,7 @@ static	bool	IsArithmOper(int oper)
 	}
 	return	false;
 }
-//是否为函数运算符
+//
 static	bool	IsFuncOper(int oper)
 {
 	switch(oper)
@@ -695,13 +674,13 @@ bool	SCalculator::CreateExpression(const char * p_str)
 				stack_data.type = PARSE_TYPE_NUM;
 				stack_data.value = token.value;
 				num_array.push_back(stack_data);
-				parse_state = PARSE_STATE_OPER;	//下一个是符号状态
+				parse_state = PARSE_STATE_OPER;	//
 			}
 			else if(token.type == PARSE_TYPE_OPER)
 			{
 				if(token.oper == OPER_ADD||token.oper == OPER_SUB)
 				{
-					//可能是前缀正负号
+					//
 					bool	neg = false;
 					for(;;)
 					{
@@ -734,13 +713,13 @@ bool	SCalculator::CreateExpression(const char * p_str)
 				{
 					if(IsFuncOper(token.oper)||token.oper == OPER_PAR_L)
 					{
-						//函数操作符 或 '('
+						//
 						oper_array.push_back(token.oper);
 						parse_state = PARSE_STATE_NUM;
 					}
 					else
 					{
-						//语法错误，错误的操作符位置
+						//
 						this->error = PARSE_ERR_PROG;
 						this->err_pos = p_old - p_str;
 						return	false;
@@ -749,7 +728,7 @@ bool	SCalculator::CreateExpression(const char * p_str)
 			}
 			else if(token.type == PARSE_TYPE_VAR)
 			{
-				//变量
+				//
 				TVarHandle index= var_map.find(token.var_name);
 				if(index == var_map.end())
 				{
@@ -759,7 +738,7 @@ bool	SCalculator::CreateExpression(const char * p_str)
 				stack_data.type = PARSE_TYPE_VAR;
 				stack_data.var_info = index;
 				num_array.push_back(stack_data);
-				parse_state = PARSE_STATE_OPER;	//下一个是符号状态
+				parse_state = PARSE_STATE_OPER;	//
 			}
 		}
 		else if(parse_state == PARSE_STATE_OPER)

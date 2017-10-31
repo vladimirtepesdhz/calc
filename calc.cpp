@@ -27,23 +27,23 @@ void	CalcProc(SCalculator* p_calc,char const * p_expr)
 	}
 	else
 	{
-		//Ôö¼Ó×¢ÊÍ
+		//
 		if(error_code == SCalculator::PARSE_ERR_CHAR)
-			printf("±í´ïÊ½´Ê·¨´íÎó£¡");
+			printf("è¯æ³•é”™è¯¯ï¼");
 		else if(error_code == SCalculator::PARSE_ERR_PROG)
-			printf("±í´ïÊ½Óï·¨´íÎó£¡");
-		printf("´íÎóÎ»ÖÃ:%d\n",error_pos);
+			printf("è¯­æ³•é”™è¯¯ï¼");
+		printf("é”™è¯¯ä½ç½®:%d\n",error_pos);
 	}
 }
 
 int main(int argc,char * argv[])
 {
-	SCalculator	calc;
 
 	if(argc > 1)
 	{
 		for(int iter=1;iter<argc;++iter)
 		{
+			SCalculator	calc;
 			CalcProc(&calc,argv[iter]);
 		}
 	}
@@ -52,10 +52,12 @@ int main(int argc,char * argv[])
 		char	input_buf[512];
 		for(;;)
 		{
-			printf("ÊäÈë±í´ïÊ½:");
+
+			SCalculator	calc;
+			printf("è¾“å…¥è¡¨è¾¾å¼:");
 
 			gets(input_buf);
-			if(stricmp(input_buf,"exit") == 0)
+			if(strcasecmp(input_buf,"exit") == 0)
 				break;
 			CalcProc(&calc,input_buf);
 		}

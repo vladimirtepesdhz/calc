@@ -17,9 +17,9 @@ struct	SCalculator
 	enum	EParseType
 	{
 		PARSE_TYPE_NULL
-		,PARSE_TYPE_NUM		//Êý×Ö
-		,PARSE_TYPE_OPER	//²Ù×÷·û£¬°üÀ¨ËÄÔòÔËËã£¬º¯Êý·ûºÅ£¬¹ÎºÅ
-		,PARSE_TYPE_VAR		//±äÁ¿
+		,PARSE_TYPE_NUM		//æ•°å­—
+		,PARSE_TYPE_OPER	//æ“ä½œç¬¦
+		,PARSE_TYPE_VAR		//å˜é‡
 	};
 	enum	EOperator
 	{
@@ -31,25 +31,25 @@ struct	SCalculator
 		,OPER_LOG = (int)'~'
 		,OPER_PAR_L = (int)'('
 		,OPER_PAR_R = (int)')'
-		,OPER_NEG = 0x0100	//¸ººÅ
+		,OPER_NEG = 0x0100	//è´Ÿå·
 
-		,OPER_FUNC_ABS	//absº¯Êý
-		,OPER_FUNC_SQRT	//sqrtº¯Êý
-		,OPER_FUNC_SIN	//sinº¯Êý
-		,OPER_FUNC_COS	//cosº¯Êý
-		,OPER_FUNC_TAN	//tanº¯Êý
-		,OPER_FUNC_EXP	//expº¯Êý
-		,OPER_FUNC_LN	//lnº¯Êý
-		,OPER_FUNC_LOG10	//log10º¯Êý
-		,OPER_FUNC_ASIN	//asinº¯Êý
-		,OPER_FUNC_ACOS	//acosº¯Êý
-		,OPER_FUNC_ATAN	//atanº¯Êý
+		,OPER_FUNC_ABS	//abs
+		,OPER_FUNC_SQRT	//sqrt
+		,OPER_FUNC_SIN	//sin
+		,OPER_FUNC_COS	//cos
+		,OPER_FUNC_TAN	//tan
+		,OPER_FUNC_EXP	//exp
+		,OPER_FUNC_LN	//ln
+		,OPER_FUNC_LOG10	//log10
+		,OPER_FUNC_ASIN	//asin
+		,OPER_FUNC_ACOS	//acos
+		,OPER_FUNC_ATAN	//atan
 	};
 	enum	EParseError
 	{
-		PARSE_ERR_NULL = 0	//ÎÞ´íÎó
-		,PARSE_ERR_CHAR = 1	//×Ö·û´íÎó
-		,PARSE_ERR_PROG = 2	//±í´ïÊ½Óï·¨´íÎó
+		PARSE_ERR_NULL = 0	//
+		,PARSE_ERR_CHAR = 1	//
+		,PARSE_ERR_PROG = 2	//
 	};
 
 	struct	SToken
@@ -130,7 +130,7 @@ public:
 private:
 	string	expr;
 	map<string,TComplex>	var_map;
-	vector<SStackData>	suffix;	//ºó×º±í´ïÊ½Óï½á¹¹
+	vector<SStackData>	suffix;	//
 	EParseError	error;
 	int	err_pos;
 };
