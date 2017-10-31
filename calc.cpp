@@ -28,6 +28,7 @@ void	CalcProc(SCalculator* p_calc,char const * p_expr)
 	else
 	{
 		//测试主分支的修改
+		//增加分支comment的测试
 		if(error_code == SCalculator::PARSE_ERR_CHAR)
 			printf("词法错误！");
 		else if(error_code == SCalculator::PARSE_ERR_PROG)
