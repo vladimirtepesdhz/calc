@@ -1,0 +1,29 @@
+type = RELEASE
+
+CXXFLAGS =	-Wall -fmessage-length=0 -ggdb
+
+OBJS =		calc.do	Calculator.do
+
+LIBS =
+
+TARGET =	calc.d.exe
+
+$(TARGET):	$(OBJS)
+	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
+
+
+
+calc.do:	calc.cpp	Calculator.h
+	$(CXX)	$(CXXFLAGS) -c	calc.cpp -o calc.do
+
+Calculator.do:	Calculator.cpp	Calculator.h
+	$(CXX)	$(CXXFLAGS) -c	Calculator.cpp -o Calculator.do
+
+
+.PHONY:clean
+clean:
+ifeq ($(shell uname),Linux)
+	-rm -rf	*.do	$(TARGET) 
+else
+	-del	*.do	$(TARGET) 
+endif
