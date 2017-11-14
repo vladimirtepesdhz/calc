@@ -1,35 +1,28 @@
 DEBUG = 0
 
-ifeq ($(DEBUG),0)
-CXXFLAGS =	-O2 -Wall -fmessage-length=0
-OBJS =		calc.o	Calculator.o
-LIBS =
-TARGET =	calc.exe
-else
-CXXFLAGS =	-O2 -Wall -fmessage-length=0 -ggdb
-OBJS =		calc.do	Calculator.do
-LIBS =
-TARGET =	calc.d.exe
-endif
+DIR_SRC = .
+DIR_OBJ = ./obj
+DIR_BIN = ./bin
+ 
+SRC = $(wildcard ${DIR_SRC}/*.cpp)  
+OBJ = $(patsubst %.cpp,${DIR_OBJ}/%.o,$(notdir ${SRC})) 
+ 
+TARGET = main
+ 
+BIN_TARGET = ${DIR_BIN}/${TARGET}
 
+CC = g++
+CFLAGS = -g -Wall 
 
-$(TARGET):	$(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
+ 
+${BIN_TARGET}:${OBJ}	
+	$(CC) $(OBJ)  -o $@
 
-
-calc.o:		calc.cpp	Calculator.h
-	$(CXX)	$(CXXFLAGS) -c	calc.cpp -o calc.o
-
-Calculator.o:	Calculator.cpp	Calculator.h
-	$(CXX)	$(CXXFLAGS) -c	Calculator.cpp -o Calculator.o
-
-calc.do:	calc.cpp	Calculator.h
-	$(CXX)	$(CXXFLAGS) -c	calc.cpp -o calc.do
-
-Calculator.do:	Calculator.cpp	Calculator.h
-	$(CXX)	$(CXXFLAGS) -c	Calculator.cpp -o Calculator.do
+${DIR_OBJ}/%.o:${DIR_SRC}/%.cpp
+	@-mkdir ${DIR_OBJ} ${DIR_BIN}
+	$(CC) $(CFLAGS) -c  $< -o $@
 
 .PHONY:clean
 clean:
-	-del	$(OBJS)	$(TARGET) 
-	-rm -rf	$(OBJS)	$(TARGET) 
+	-del ${OBJ} ${BIN_TARGET}
+	-rm -rf ${OBJ} ${BIN_TARGET}
