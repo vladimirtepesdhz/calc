@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "config.h"
 #include "Calculator.h"
 
 void	CalcProc(SCalculator* p_calc,char const * p_expr)
