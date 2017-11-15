@@ -1,25 +1,40 @@
 DEBUG = 0
 
+CC = g++
 DIR_SRC = .
-DIR_OBJ = ./obj
-DIR_BIN = ./bin
+TARGET = calc.exe
+
+ifeq ($(DEBUG),0)
+DIR_OBJ = release
+DIR_BIN = release
+CFLAGS = -O2 -Wall 
+else
+DIR_OBJ = debug
+DIR_BIN = debug
+CFLAGS = -O2 -Wall -ggdb
+endif
  
 SRC = $(wildcard ${DIR_SRC}/*.cpp)  
 OBJ = $(patsubst %.cpp,${DIR_OBJ}/%.o,$(notdir ${SRC})) 
  
-TARGET = main
  
 BIN_TARGET = ${DIR_BIN}/${TARGET}
 
-CC = g++
-CFLAGS = -g -Wall 
 
+all:|createdir ${BIN_TARGET}
+
+createdir:
+	@if [ ! -d $(DIR_BIN) ] ; then\
+		mkdir $(DIR_BIN) ;\
+	fi
+	@if [ ! -d $(DIR_OBJ) ] ; then\
+		mkdir $(DIR_OBJ) ;\
+	fi
  
 ${BIN_TARGET}:${OBJ}	
 	$(CC) $(OBJ)  -o $@
 
 ${DIR_OBJ}/%.o:${DIR_SRC}/%.cpp
-	@-mkdir ${DIR_OBJ} ${DIR_BIN}
 	$(CC) $(CFLAGS) -c  $< -o $@
 
 .PHONY:clean
