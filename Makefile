@@ -3,7 +3,17 @@ DEBUG = 0
 all : genm runm
 
 genm : genmake.sh files.list
-	@bash genmake.sh files.list mk
+	@if [ ! -f genmake.sh ] ; then \
+		echo 'ERROR: cannot find gemake.sh';\
+		exit 1;\
+	fi
+	@if [ ! -f files.list ] ; then \
+		echo 'ERROR: cannot find files.list';\
+		exit 1;\
+	fi
+	@if [ ! -f mk ] ; then \
+		bash genmake.sh files.list mk;\
+	fi
 runm :
 	@make DEBUG=$(DEBUG) -f mk
 

@@ -41,7 +41,6 @@ void	CalcProc(SCalculator* p_calc,char const * p_expr)
 
 int main(int argc,char * argv[])
 {
-
 	if(argc > 1)
 	{
 		for(int iter=1;iter<argc;++iter)
