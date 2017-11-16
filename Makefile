@@ -25,14 +25,8 @@ BIN_TARGET = ${DIR_BIN}/${TARGET}
 
 
 all:|createdir IND_TARGET ${BIN_TARGET}
-
+	
 createdir:
-#ifeq ($(wildcard $(DIR_OBJ)),)
-#	@-mkdir -p $(DIR_OBJ)
-#endif
-#ifeq ($(wildcard $(DIR_BIN)),)
-#	@-mkdir -p $(DIR_BIN)
-#endif
 	@if [ ! -d $(DIR_OBJ) ]; then\
 		mkdir -p $(DIR_OBJ) ;\
 	fi
@@ -44,17 +38,18 @@ createdir:
 	fi
 
 IND_TARGET:${IND}
-	echo 'index target'
 	
 ${DIR_IND}/%.d:${DIR_SRC}/%.cpp
-	$(CC) -MM $< | awk '{$$1=null;$$2=null;print}' | sed 's/^[[:space:]]*//g' >$@
-	#$(CC) -MM $< | sed 's/.*\.o[[:space:]]*.*\.c(pp)?[[:space:]]*//g' >$@
+	$(CC) -MM $< | sed 's,\($*\)\.o[ :]\?,${DIR_OBJ}/\1\.o $@ :,g' >$@
+
  
 ${BIN_TARGET}:${OBJ}	
 	$(CC) $(OBJ)  -o $@
 
 ${DIR_OBJ}/%.o:${DIR_SRC}/%.cpp
 	$(CC) $(CFLAGS) -c  $< -o $@
+-include $(IND)
+
 
 .PHONY:clean
 clean:
