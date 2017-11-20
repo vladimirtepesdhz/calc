@@ -7,7 +7,7 @@ DIR_BUILD = release
 CFLAGS = -O2 -Wall
 else
 DIR_BUILD = debug
-CFLAGS = -O2 -Wall -ggdb
+CFLAGS = -O2 -Wall -g
 endif
 DIR_OBJ = $(DIR_BUILD)/obj
 DIR_BIN = $(DIR_BUILD)/bin

@@ -26,7 +26,7 @@ echo 'DIR_BUILD = release' >> $dst
 echo 'CFLAGS = -O2 -Wall' >> $dst 
 echo 'else' >> $dst
 echo 'DIR_BUILD = debug' >> $dst
-echo 'CFLAGS = -O2 -Wall -ggdb' >> $dst
+echo 'CFLAGS = -O2 -Wall -g' >> $dst
 echo 'endif' >> $dst
 echo 'DIR_OBJ = $(DIR_BUILD)/obj' >> $dst
 echo 'DIR_BIN = $(DIR_BUILD)/bin' >> $dst
