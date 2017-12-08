@@ -42,7 +42,7 @@ createdir:
 ${BIN_TARGET}:${OBJ}
 	$(CC) ${OBJ} -o $@
 
-${DIR_OBJ}/calc.o: calc.cpp config.h Calculator.h
+${DIR_OBJ}/calc.o: calc.cpp Calculator.h
 	$(CC) $(CFLAGS) -c calc.cpp -o $@
 ${DIR_OBJ}/Calculator.o: Calculator.cpp Calculator.h
 	$(CC) $(CFLAGS) -c Calculator.cpp -o $@

@@ -1,8 +1,8 @@
 DEBUG = 0
 
-all : mk runm
+all : genm runm
 
-mk : genmake.sh files.list
+genm : genmake.sh files.list
 	@if [ ! -f genmake.sh ] ; then \
 		echo 'ERROR: cannot find gemake.sh';\
 		exit 1;\
